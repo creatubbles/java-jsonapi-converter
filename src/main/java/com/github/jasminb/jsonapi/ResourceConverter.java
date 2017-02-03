@@ -525,14 +525,6 @@ public class ResourceConverter {
 
 			if (resourceCache.contains(identifier)) {
 				return resourceCache.get(identifier);
-			} else {
-				// Never cache relationship objects
-				resourceCache.lock();
-				try {
-					return readObject(relationshipDataNode, type, true);
-				} finally {
-					resourceCache.unlock();
-				}
 			}
 		}
 
