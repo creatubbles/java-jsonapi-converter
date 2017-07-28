@@ -8,7 +8,7 @@ import com.github.jasminb.jsonapi.annotations.RelationshipMeta;
 import com.github.jasminb.jsonapi.annotations.Type;
 
 @Type(value = "statuses", path = "/statuses/{id}")
-public class Status {
+public class Status extends EmptyRelationship {
 	@Id
 	private String id;
 	private String content;

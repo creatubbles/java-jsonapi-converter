@@ -268,6 +268,24 @@ public class ResourceConverterTest {
 		User user = userDocument.get();
 		Assert.assertNotNull(user.getStatuses());
 	}
+
+	@Test
+	public void testNotIncludedIncludables() throws IOException {
+		InputStream apiResponse = IOUtils.getResource("user-with-statuses.json");
+
+		JSONAPIDocument<User> userDocument = converter.readDocument(apiResponse, User.class);
+		User user = userDocument.get();
+		Assert.assertTrue(user.getStatuses().get(0).isEmpty());
+	}
+
+	@Test
+	public void testIncludedIncludables() throws IOException {
+		InputStream apiResponse = IOUtils.getResource("user-with-included-statuses.json");
+
+		JSONAPIDocument<User> userDocument = converter.readDocument(apiResponse, User.class);
+		User user = userDocument.get();
+		Assert.assertFalse(user.getStatuses().get(0).isEmpty());
+	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testExpectData() throws UnsupportedEncodingException {

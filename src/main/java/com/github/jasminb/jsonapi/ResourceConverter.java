@@ -14,6 +14,7 @@ import com.github.jasminb.jsonapi.annotations.Relationship;
 import com.github.jasminb.jsonapi.annotations.Type;
 import com.github.jasminb.jsonapi.exceptions.DocumentSerializationException;
 import com.github.jasminb.jsonapi.exceptions.UnregisteredTypeException;
+import com.github.jasminb.jsonapi.models.IEmptyRelationship;
 import com.github.jasminb.jsonapi.models.errors.Error;
 
 import java.io.ByteArrayInputStream;
@@ -302,11 +303,17 @@ public class ResourceConverter {
 
 			if (source.has(ATTRIBUTES)) {
 				result = (T) objectMapper.treeToValue(source.get(ATTRIBUTES), type);
+				if (result instanceof IEmptyRelationship) {
+					((IEmptyRelationship) result).setIsEmpty(false);
+				}
 			} else {
 				if (type.isInterface()) {
 					result = null;
 				} else {
 					result = (T) objectMapper.treeToValue(objectMapper.createObjectNode(), type);
+					if (result instanceof IEmptyRelationship) {
+						((IEmptyRelationship) result).setIsEmpty(true);
+					}
 				}
 			}
 
