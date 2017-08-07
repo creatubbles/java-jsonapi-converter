@@ -1,0 +1,43 @@
+{
+  "data": {
+    "type": "users",
+    "id": "userId",
+    "attributes": {
+      "name": "user"
+    },
+    "relationships": {
+      "statuses": {
+        "data": [
+          {
+            "type": "statuses",
+            "id": "1"
+          },
+          {
+            "type": "statuses",
+            "id": "2"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "type": "statuses",
+      "id": "1",
+      "attributes": {
+        "content": "anotherContent",
+        "commentCount": 2,
+        "likeCount": 20
+      }
+    },
+    {
+      "type": "statuses",
+      "id": "2",
+      "attributes": {
+        "content": "myContent",
+        "commentCount": 3,
+        "likeCount": 30
+      }
+    }
+  ]
+}
