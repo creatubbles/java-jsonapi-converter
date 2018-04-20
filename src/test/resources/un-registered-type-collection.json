@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "type": "unRegisteredType",
+      "id": "userId",
+      "attributes": {
+        "name": "liz"
+      }
+    },
+    {
+      "type": "users",
+      "id": "1",
+      "attributes": {
+        "name": "liz"
+      }
+    }
+  ]
+}

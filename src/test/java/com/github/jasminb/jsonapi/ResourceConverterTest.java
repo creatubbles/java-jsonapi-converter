@@ -696,13 +696,24 @@ public class ResourceConverterTest {
 	}
 
 	@Test
-	public void testUnregisteredType() throws IOException {
+	public void testUnregisteredTypeThrows() throws IOException {
 		InputStream apiResponse = IOUtils.getResource("un-registered-type.json");
 
 		thrown.expect(UnregisteredTypeException.class);
 		thrown.expectMessage("No class was registered for type 'unRegisteredType'.");
 
 		converter.readDocument(apiResponse, User.class);
+	}
+
+	@Test
+	public void testUnregisteredTypeIgnoredInCollection() throws IOException {
+		converter.enableDeserializationOption(DeserializationFeature.IGNORE_UNREGISTERED_TYPES);
+
+		InputStream apiResponse = IOUtils.getResource("un-registered-type-collection.json");
+
+		JSONAPIDocument<List<User>> users = converter.readDocumentCollection(apiResponse, User.class);
+		Assert.assertNotNull(users);
+		Assert.assertEquals(1, users.get().size());
 	}
 
 	/**
